@@ -4,11 +4,24 @@ import { useState } from 'react'
 import { InputTodo } from './components/InputTodo'
 import { IncompleteTodos } from './components/IncompleteTodos'
 import { CompleteTodos } from './components/CompleteTodos'
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  TwitterShareButton,
+  TwitterIcon,
+} from 'react-share'
 
 export const App = () => {
   const [todoText, setTodoText] = useState('')
   const [incompleteTodos, setIncompleteTodos] = useState([])
   const [completeTodos, setCompleteTodos] = useState([])
+
+  /* 日付の取得*/
+
+  const today = new Date()
+  const year = today.getFullYear()
+  const month = today.getMonth() + 1
+  const date = today.getDate()
 
   const onChangeTodoText = (event) => setTodoText(event.target.value)
   const onClickAdd = () => {
@@ -46,17 +59,33 @@ export const App = () => {
         <div className="title">
           <h1>My To Do List</h1>
         </div>
+
+        {/* 日付の取得*/}
+        <div className="date">
+          {year}年{month}月{date}日
+        </div>
         <InputTodo
           todoText={todoText}
           onChange={onChangeTodoText}
           onClick={onClickAdd}
+          disabled={incompleteTodos.length >= 5}
         />
+        {incompleteTodos.length >= 5 && (
+          <p className="caution">登録できるTodoは5コまでです！</p>
+        )}
+
         <IncompleteTodos
           todos={incompleteTodos}
           onClickComplete={onClickComplete}
           onClickDelete={onClickDelete}
         />
         <CompleteTodos todos={completeTodos} onClickBack={onClickBack} />
+        <TwitterShareButton
+          url={['シェアしたいURL']}
+          title={['シェア時に一緒に投稿したいタイトル']}
+        >
+          <TwitterIcon size={32} round />
+        </TwitterShareButton>
       </div>
     </>
   )
