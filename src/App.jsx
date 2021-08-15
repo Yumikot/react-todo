@@ -81,8 +81,8 @@ export const App = () => {
         />
         <CompleteTodos todos={completeTodos} onClickBack={onClickBack} />
         <TwitterShareButton
-          url={['シェアしたいURL']}
-          title={['シェア時に一緒に投稿したいタイトル']}
+          url={['https://react-todo2021.herokuapp.com/']}
+          title={['React-todoapp']}
         >
           <TwitterIcon size={32} round />
         </TwitterShareButton>
